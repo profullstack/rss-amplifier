@@ -22,19 +22,6 @@ export function getConfigPath() {
 export function getDefaultConfig() {
   return {
     platforms: {
-      mastodon: {
-        enabled: false,
-        instanceUrl: '',
-        accessToken: '',
-        clientId: '',
-        clientSecret: '',
-      },
-      bluesky: {
-        enabled: false,
-        handle: '',
-        password: '',
-        appPassword: '',
-      },
       x: {
         enabled: false,
         accessToken: '',
@@ -51,11 +38,42 @@ export function getDefaultConfig() {
         clientId: '',
         clientSecret: '',
       },
-      nostr: {
+      reddit: {
+        enabled: false,
+        accessToken: '',
+        refreshToken: '',
+        expiresAt: '',
+        clientId: '',
+        clientSecret: '',
+        username: '',
+      },
+      facebook: {
+        enabled: false,
+        accessToken: '',
+        refreshToken: '',
+        expiresAt: '',
+        clientId: '',
+        clientSecret: '',
+        pageId: '',
+      },
+      'hacker-news': {
+        enabled: false,
+        username: '',
+        password: '',
+        sessionCookie: '',
+      },
+      'stacker-news': {
+        enabled: false,
+        apiKey: '',
+        accessToken: '',
+        refreshToken: '',
+        expiresAt: '',
+      },
+      primal: {
         enabled: false,
         privateKey: '',
         publicKey: '',
-        relays: ['wss://relay.damus.io', 'wss://nos.lol'],
+        relays: ['wss://relay.primal.net'],
       },
     },
     general: {
@@ -408,11 +426,13 @@ export function getReadyPlatforms(config) {
  */
 export function getPlatformDisplayName(platformName) {
   const displayNames = {
-    mastodon: 'Mastodon',
-    bluesky: 'Bluesky',
     x: 'X (Twitter)',
     linkedin: 'LinkedIn',
-    nostr: 'Nostr',
+    reddit: 'Reddit',
+    facebook: 'Facebook',
+    'hacker-news': 'Hacker News',
+    'stacker-news': 'Stacker News',
+    primal: 'Primal (Nostr)',
   };
 
   return displayNames[platformName] || platformName;

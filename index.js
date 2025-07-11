@@ -45,11 +45,17 @@ export {
 
 export {
   SocialPoster,
-  postToMastodon,
-  postToBluesky,
-  postToTwitter,
+  postToSocial,
+  postToX,
   postToLinkedIn,
-  postToNostr,
+  postToReddit,
+  postToFacebook,
+  postToHackerNews,
+  postToStackerNews,
+  postToPrimal,
+  batchPost,
+  getSupportedPlatforms,
+  validateSocialContent,
 } from './src/social-poster.js';
 
 /**
