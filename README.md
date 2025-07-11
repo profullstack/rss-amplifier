@@ -26,6 +26,26 @@ npm install -g @profullstack/rss-amplifier
 pnpm add -g @profullstack/rss-amplifier
 ```
 
+## Setup
+
+📋 **For detailed setup instructions, see [SETUP.md](SETUP.md)**
+
+1. **Configure environment variables:**
+   ```bash
+   # Copy the sample environment file
+   cp .env.sample .env
+   
+   # Edit with your API keys and credentials
+   nano .env
+   ```
+
+2. **Required: OpenAI API Key**
+   ```env
+   OPENAI_API_KEY=sk-your-openai-api-key-here
+   ```
+
+3. **Optional: Social media platform credentials** (see [SETUP.md](SETUP.md) for details)
+
 ## Quick Start
 
 ```bash
