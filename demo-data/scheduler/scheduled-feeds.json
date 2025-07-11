@@ -1,0 +1,47 @@
+{
+  "feeds": {
+    "aHR0cHM6Ly90ZWNoY3J1bmNoLmNvbS9mZWVkLw": {
+      "id": "aHR0cHM6Ly90ZWNoY3J1bmNoLmNvbS9mZWVkLw",
+      "url": "https://techcrunch.com/feed/",
+      "title": "TechCrunch",
+      "interval": "*/15 * * * *",
+      "nextRun": "2025-07-11T12:31:30.205Z",
+      "lastRun": null,
+      "lastSuccess": null,
+      "failureCount": 0,
+      "enabled": true,
+      "description": "Technology news and analysis"
+    },
+    "aHR0cHM6Ly9obnJzcy5vcmcvZnJvbnRwYWdl": {
+      "id": "aHR0cHM6Ly9obnJzcy5vcmcvZnJvbnRwYWdl",
+      "url": "https://hnrss.org/frontpage",
+      "title": "Hacker News",
+      "interval": "*/15 * * * *",
+      "nextRun": "2025-07-11T12:31:30.217Z",
+      "lastRun": null,
+      "lastSuccess": null,
+      "failureCount": 0,
+      "enabled": true,
+      "description": "Hacker News front page"
+    },
+    "aHR0cHM6Ly9kZXYudG8vZmVlZA": {
+      "id": "aHR0cHM6Ly9kZXYudG8vZmVlZA",
+      "url": "https://dev.to/feed",
+      "title": "Dev.to",
+      "interval": "*/15 * * * *",
+      "nextRun": "2025-07-11T12:31:30.217Z",
+      "lastRun": null,
+      "lastSuccess": null,
+      "failureCount": 0,
+      "enabled": true,
+      "description": "Developer community posts"
+    }
+  },
+  "stats": {
+    "totalFeeds": 3,
+    "successfulUpdates": 1,
+    "failedUpdates": 0,
+    "lastUpdateTime": "2025-07-11T12:16:30.223Z"
+  },
+  "lastSaved": "2025-07-11T12:16:30.223Z"
+}

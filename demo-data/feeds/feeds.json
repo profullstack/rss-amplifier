@@ -1,0 +1,81 @@
+{
+  "aHR0cHM6Ly90ZWNoY3J1bmNoLmNvbS9mZWVkLw": {
+    "id": "aHR0cHM6Ly90ZWNoY3J1bmNoLmNvbS9mZWVkLw",
+    "url": "https://techcrunch.com/feed/",
+    "title": "TechCrunch",
+    "description": "Technology news and analysis",
+    "items": [],
+    "lastUpdated": "2025-07-11T12:16:30.205Z",
+    "interval": "*/15 * * * *"
+  },
+  "aHR0cHM6Ly9obnJzcy5vcmcvZnJvbnRwYWdl": {
+    "id": "aHR0cHM6Ly9obnJzcy5vcmcvZnJvbnRwYWdl",
+    "url": "https://hnrss.org/frontpage",
+    "title": "Hacker News",
+    "description": "Hacker News front page",
+    "items": [],
+    "lastUpdated": "2025-07-11T12:16:30.216Z",
+    "interval": "*/15 * * * *"
+  },
+  "aHR0cHM6Ly9kZXYudG8vZmVlZA": {
+    "id": "aHR0cHM6Ly9kZXYudG8vZmVlZA",
+    "url": "https://dev.to/feed",
+    "title": "Dev.to",
+    "description": "Developer community posts",
+    "items": [],
+    "lastUpdated": "2025-07-11T12:16:30.217Z",
+    "interval": "*/15 * * * *"
+  },
+  "aHR0cHM6Ly9kZW1vLmV4YW1wbGUuY29tL2ZlZWQueG1s": {
+    "id": "aHR0cHM6Ly9kZW1vLmV4YW1wbGUuY29tL2ZlZWQueG1s",
+    "url": "https://demo.example.com/feed.xml",
+    "title": "Demo Feed",
+    "description": "A demo RSS feed",
+    "items": [
+      {
+        "title": "Demo Article 1",
+        "link": "https://demo.example.com/article1",
+        "pubDate": "Wed, 01 Jan 2025 12:00:00 GMT",
+        "content": "This is a demo article",
+        "contentSnippet": "This is a demo article",
+        "isoDate": "2025-01-01T12:00:00.000Z"
+      },
+      {
+        "title": "Demo Article 2",
+        "link": "https://demo.example.com/article2",
+        "pubDate": "Wed, 01 Jan 2025 11:00:00 GMT",
+        "content": "Another demo article",
+        "contentSnippet": "Another demo article",
+        "isoDate": "2025-01-01T11:00:00.000Z"
+      }
+    ],
+    "lastUpdated": "2025-07-11T12:16:30.223Z",
+    "language": "",
+    "itemCount": 2,
+    "generator": "",
+    "copyright": "",
+    "originalData": {
+      "items": [
+        {
+          "title": "Demo Article 1",
+          "link": "https://demo.example.com/article1",
+          "pubDate": "Wed, 01 Jan 2025 12:00:00 GMT",
+          "content": "This is a demo article",
+          "contentSnippet": "This is a demo article",
+          "isoDate": "2025-01-01T12:00:00.000Z"
+        },
+        {
+          "title": "Demo Article 2",
+          "link": "https://demo.example.com/article2",
+          "pubDate": "Wed, 01 Jan 2025 11:00:00 GMT",
+          "content": "Another demo article",
+          "contentSnippet": "Another demo article",
+          "isoDate": "2025-01-01T11:00:00.000Z"
+        }
+      ],
+      "title": "Demo Feed",
+      "description": "A demo RSS feed",
+      "link": "https://demo.example.com"
+    }
+  }
+}
