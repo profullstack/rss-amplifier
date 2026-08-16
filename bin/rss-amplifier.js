@@ -16,6 +16,13 @@ dotenv.config();
 // Import core modules
 import { loadConfig, getConfigPath, getPlatformDisplayName, getAIConfig, isAIReady } from '../src/config-manager.js';
 import { SetupWizard } from '../src/setup-wizard.js';
+import {
+  importOpmlCommand,
+  harvestPodcastsCommand,
+  feedStatsCommand,
+  recentArticlesCommand,
+  daemonCommand,
+} from '../src/feed-commands.js';
 
 /**
  * Handle setup command
@@ -164,8 +171,41 @@ async function handleImportCommand(argv) {
  * Handle feeds command (placeholder)
  */
 async function handleFeedsCommand(argv) {
-  console.log(colors.yellow('📰 Feed management coming soon...'));
-  console.log(colors.cyan('This feature will be implemented in the next development phase.'));
+  switch (argv.action) {
+  case 'import-opml': {
+    // `--file` or the trailing positional, so both spellings work.
+    const file = argv.file ?? argv._?.[1];
+    if (!file) {
+      console.error(colors.red('Which OPML file? Pass --file <path>'));
+      process.exit(1);
+    }
+    await importOpmlCommand({ ...argv, file });
+    return;
+  }
+  case 'harvest-podcasts':
+    await harvestPodcastsCommand(argv);
+    return;
+  case 'stats':
+    await feedStatsCommand(argv);
+    return;
+  case 'recent':
+    await recentArticlesCommand(argv);
+    return;
+  default:
+    console.log(colors.yellow('📰 That feed action is not implemented yet.'));
+    console.log(colors.cyan('Available now: import-opml, harvest-podcasts, stats, recent'));
+  }
+}
+
+/**
+ * Handle daemon command
+ */
+async function handleDaemonCommand(argv) {
+  if (argv.action === 'status') {
+    await feedStatsCommand(argv);
+    return;
+  }
+  await daemonCommand(argv);
 }
 
 /**
@@ -230,7 +270,59 @@ function configureCommandLine() {
         .positional('action', {
           describe: 'Action to perform',
           type: 'string',
-          choices: ['list', 'refresh', 'add', 'remove']
+          choices: ['list', 'refresh', 'add', 'remove', 'import-opml', 'harvest-podcasts', 'stats', 'recent']
+        })
+        .option('file', {
+          describe: 'OPML file to import (import-opml)',
+          type: 'string'
+        })
+        .option('db', {
+          describe: 'Path to the feed database',
+          type: 'string'
+        })
+        .option('origin', {
+          describe: 'Label recorded as the source of imported feeds',
+          type: 'string'
+        })
+        .option('all', {
+          describe: 'Sweep every market rather than just the US (harvest-podcasts)',
+          type: 'boolean',
+          default: false
+        })
+        .option('delay', {
+          describe: 'Milliseconds between search requests (harvest-podcasts)',
+          type: 'number'
+        })
+        .option('kind', {
+          describe: 'Filter by feed kind',
+          type: 'string',
+          choices: ['blog', 'podcast', 'unknown']
+        })
+        .option('limit', {
+          describe: 'How many rows to show',
+          type: 'number'
+        });
+    })
+    .command('daemon <action>', 'Run the feed polling daemon', (yargs) => {
+      return yargs
+        .positional('action', {
+          describe: 'Action to perform',
+          type: 'string',
+          choices: ['start', 'status']
+        })
+        .option('db', {
+          describe: 'Path to the feed database',
+          type: 'string'
+        })
+        .option('batch', {
+          describe: 'Feeds fetched concurrently per batch',
+          type: 'number',
+          default: 8
+        })
+        .option('pause', {
+          describe: 'Seconds to wait between batches',
+          type: 'number',
+          default: 2
         });
     })
     .command('snippets <action>', 'Manage snippets', (yargs) => {
@@ -319,6 +411,9 @@ async function main() {
       break;
     case 'feeds':
       await handleFeedsCommand(argv);
+      break;
+    case 'daemon':
+      await handleDaemonCommand(argv);
       break;
     case 'snippets':
       await handleSnippetsCommand(argv);

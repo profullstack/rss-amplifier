@@ -86,6 +86,45 @@ rssamp schedule auto-post --platform bluesky --interval daily
 - `rssamp feeds list` - List all feeds
 - `rssamp feeds refresh` - Manually refresh feeds
 
+### Feed Catalogue
+
+For catalogues rather than a handful of hand-picked feeds. These commands use a
+SQLite store (`~/.config/rss-amplifier/feeds.db`) instead of `feeds.json`,
+because the JSON store loads every feed into memory and rewrites the whole file
+on each change — fine for fifty feeds, fatal for fifty thousand.
+
+- `rssamp feeds import-opml --file feeds.opml` - Stream an OPML catalogue in.
+  Tested at 47,000 feeds in under two seconds.
+- `rssamp feeds harvest-podcasts [--all]` - Build a podcast catalogue from the
+  iTunes Search API (free, no key). `--all` sweeps ten markets instead of one.
+  Paced under Apple's rate limit; Ctrl-C is safe and keeps what it found.
+- `rssamp feeds stats` - Catalogue size, what is due, what is failing.
+- `rssamp feeds recent [--kind podcast]` - Newest articles collected.
+
+### The Poller Daemon
+
+```bash
+rssamp daemon start            # 8 feeds at a time, 2s between batches
+rssamp daemon start --batch 16 --pause 5
+rssamp daemon status           # same as `feeds stats`
+```
+
+Keeping tens of thousands of feeds current is only affordable because almost
+every poll costs nothing:
+
+- **Conditional GET.** Each feed stores its `ETag`/`Last-Modified`, so an
+  unchanged feed answers `304` — no body, no parsing. Servers that ignore
+  those get the same cheap path via a content hash.
+- **Adaptive intervals.** A feed that publishes is checked sooner; one that
+  never changes backs off, up to a day.
+- **Backoff and eviction.** Failures back off exponentially, and a feed that
+  fails repeatedly is deactivated rather than retried forever.
+- **Bounded everything.** One feed per host per batch, a request timeout, and
+  a download size cap.
+
+The database is the queue — there is no Redis and no job server. The daemon can
+be killed at any moment and resumes exactly where it left off.
+
 ### Snippet Management
 - `rssamp snippets generate [options]` - Generate AI snippets
 - `rssamp snippets list` - List all snippets
