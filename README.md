@@ -101,6 +101,28 @@ on each change — fine for fifty feeds, fatal for fifty thousand.
 - `rssamp feeds stats` - Catalogue size, what is due, what is failing.
 - `rssamp feeds recent [--kind podcast]` - Newest articles collected.
 
+#### Re-syncing from brisk.news
+
+brisk.news holds the same feeds in Supabase (`rss_feed_sources`), split into
+`smallweb` (the Kagi catalogue) and `opml` (feeds collected by hand over the
+years — the ones worth keeping). Export them as OPML server-side so tens of
+thousands of rows never travel through an agent's context:
+
+```sql
+select '<?xml version="1.0" encoding="UTF-8"?><opml version="2.0">'
+    || '<head><title>brisk.news feeds</title></head><body>'
+    || string_agg(
+         '<outline type="rss" title="' || replace(coalesce(title, feed_url), '"', '&quot;')
+         || '" xmlUrl="' || replace(feed_url, '"', '&quot;') || '"/>', '')
+    || '</body></opml>'
+  from rss_feed_sources
+ where source_origin = 'opml';   -- or drop the filter for all ~33k
+```
+
+Then `rssamp feeds import-opml --file <that file> --origin brisk`. Re-running is
+safe: feed URLs are unique and normalised, so an existing feed is skipped rather
+than duplicated.
+
 ### The Poller Daemon
 
 ```bash
